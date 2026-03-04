@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WebXR AR Router</title>
+
+<style>
+body{margin:0;overflow:hidden;font-family:sans-serif}
+
+#btn{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+padding:12px 20px;
+background:#1976ff;
+color:white;
+border-radius:8px;
+font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<button id="btn">START AR</button>
+
+<script type="module">
+
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158/build/three.module.js";
+import {ARButton} from "https://cdn.jsdelivr.net/npm/three@0.158/examples/jsm/webxr/ARButton.js";
+
+let scene = new THREE.Scene()
+
+let camera = new THREE.PerspectiveCamera()
+
+let renderer = new THREE.WebGLRenderer({alpha:true,antialias:true})
+renderer.setSize(window.innerWidth,window.innerHeight)
+renderer.xr.enabled=true
+document.body.appendChild(renderer.domElement)
+
+document.body.appendChild(ARButton.createButton(renderer))
+
+let light=new THREE.HemisphereLight(0xffffff,0xbbbbff,1)
+scene.add(light)
+
+let router
+
+function createRouter(){
+
+let group=new THREE.Group()
+
+let body=new THREE.Mesh(
+new THREE.BoxGeometry(0.3,0.08,0.2),
+new THREE.MeshStandardMaterial({color:0x333333})
+)
+
+group.add(body)
+
+let port=new THREE.Mesh(
+new THREE.BoxGeometry(0.04,0.04,0.04),
+new THREE.MeshStandardMaterial({color:0xff8800})
+)
+
+port.position.set(-0.18,0,0.05)
+
+group.add(port)
+
+return group
+
+}
+
+document.getElementById("btn").onclick=()=>{
+
+if(!router){
+
+router=createRouter()
+
+router.position.set(0,-0.2,-0.6)
+
+scene.add(router)
+
+}
+
+}
+
+renderer.setAnimationLoop(()=>{
+
+renderer.render(scene,camera)
+
+})
+
+</script>
+
+</body>
+</html>
