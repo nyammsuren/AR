@@ -2,21 +2,23 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>WebXR AR Router</title>
+<title>AR Router</title>
+
+<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
 <style>
-body{margin:0;overflow:hidden;font-family:sans-serif}
+body{margin:0;overflow:hidden}
 
-#btn{
+#info{
 position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-padding:12px 20px;
-background:#1976ff;
+top:10px;
+left:10px;
 color:white;
+background:rgba(0,0,0,0.6);
+padding:10px;
 border-radius:8px;
-font-size:18px;
+font-family:sans-serif;
 }
 </style>
 
@@ -24,74 +26,56 @@ font-size:18px;
 
 <body>
 
-<button id="btn">START AR</button>
+<div id="info">
+AR Router Demo<br>
+Камераа Hiro marker дээр чиглүүл
+</div>
 
-<script type="module">
+<a-scene
+embedded
+arjs="sourceType: webcam; debugUIEnabled:false;"
+vr-mode-ui="enabled:false">
 
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158/build/three.module.js";
-import {ARButton} from "https://cdn.jsdelivr.net/npm/three@0.158/examples/jsm/webxr/ARButton.js";
+<a-marker preset="hiro">
 
-let scene = new THREE.Scene()
+<!-- ROUTER -->
 
-let camera = new THREE.PerspectiveCamera()
+<a-box
+position="0 0.05 0"
+depth="0.25"
+height="0.08"
+width="0.35"
+color="#333">
+</a-box>
 
-let renderer = new THREE.WebGLRenderer({alpha:true,antialias:true})
-renderer.setSize(window.innerWidth,window.innerHeight)
-renderer.xr.enabled=true
-document.body.appendChild(renderer.domElement)
+<!-- ports -->
 
-document.body.appendChild(ARButton.createButton(renderer))
+<a-box position="-0.15 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="orange"></a-box>
+<a-box position="-0.1 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="orange"></a-box>
+<a-box position="-0.05 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="orange"></a-box>
+<a-box position="0 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="orange"></a-box>
 
-let light=new THREE.HemisphereLight(0xffffff,0xbbbbff,1)
-scene.add(light)
+<!-- antennas -->
 
-let router
+<a-cylinder
+position="-0.1 0.15 0"
+radius="0.01"
+height="0.2"
+color="black">
+</a-cylinder>
 
-function createRouter(){
+<a-cylinder
+position="0.1 0.15 0"
+radius="0.01"
+height="0.2"
+color="black">
+</a-cylinder>
 
-let group=new THREE.Group()
+</a-marker>
 
-let body=new THREE.Mesh(
-new THREE.BoxGeometry(0.3,0.08,0.2),
-new THREE.MeshStandardMaterial({color:0x333333})
-)
+<a-entity camera></a-entity>
 
-group.add(body)
-
-let port=new THREE.Mesh(
-new THREE.BoxGeometry(0.04,0.04,0.04),
-new THREE.MeshStandardMaterial({color:0xff8800})
-)
-
-port.position.set(-0.18,0,0.05)
-
-group.add(port)
-
-return group
-
-}
-
-document.getElementById("btn").onclick=()=>{
-
-if(!router){
-
-router=createRouter()
-
-router.position.set(0,-0.2,-0.6)
-
-scene.add(router)
-
-}
-
-}
-
-renderer.setAnimationLoop(()=>{
-
-renderer.render(scene,camera)
-
-})
-
-</script>
+</a-scene>
 
 </body>
 </html>
