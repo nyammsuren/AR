@@ -1,108 +1,97 @@
-<!doctype html>
-<html lang="mn">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>WebAR Router Plug Demo</title>
+<meta charset="utf-8">
+<title>WebXR AR Router</title>
 
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+<style>
+body{margin:0;overflow:hidden;font-family:sans-serif}
 
-  <!-- AR.js for A-Frame (marker based) -->
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+#btn{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+padding:12px 20px;
+background:#1976ff;
+color:white;
+border-radius:8px;
+font-size:18px;
+}
+</style>
 
-  <script src="./app.js"></script>
-
-  <style>
-    body { margin:0; overflow:hidden; background:#000; }
-    #hud{
-      position:fixed; left:12px; top:12px; z-index:10;
-      color:#fff; font:14px/1.35 system-ui,Segoe UI,Roboto,Arial;
-      background:rgba(0,0,0,.55);
-      border:1px solid rgba(255,255,255,.15);
-      border-radius:12px;
-      padding:10px 12px;
-      max-width: 92vw;
-    }
-    #hud b{display:block; margin-bottom:6px}
-    #hud .row{opacity:.9}
-    #hint{
-      position:fixed; left:12px; bottom:12px; z-index:10;
-      color:#fff; font:13px/1.35 system-ui,Segoe UI,Roboto,Arial;
-      background:rgba(0,0,0,.45);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:12px;
-      padding:8px 10px;
-    }
-    a { color:#9ad; }
-  </style>
 </head>
 
 <body>
-  <div id="hud">
-    <b>WebAR Router → Plug → RazPort</b>
-    <div class="row">1) <a href="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png" target="_blank" rel="noreferrer">Hiro marker</a>-аа нээгээд дэлгэцэн дээрээ гарга (эсвэл хэвлэ).</div>
-    <div class="row">2) Камераа marker дээр чиглүүл.</div>
-    <div class="row">3) Plug-ийг <b>дар</b> → RazPort ногоон болно.</div>
-  </div>
 
-  <div id="hint">Tip: Гэрэл сайн, marker дүүрэн харагдвал tracking сайн.</div>
+<button id="btn">START AR</button>
 
-  <!-- AR Scene -->
-  <a-scene
-    embedded
-    renderer="antialias: true; precision: mediump;"
-    vr-mode-ui="enabled: false"
-    arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;"
-  >
-    <!-- Hiro marker -->
-    <a-marker id="marker" preset="hiro">
-      <!-- Root group on marker -->
-      <a-entity id="rig" position="0 0 0" rotation="-90 0 0" scale="1 1 1">
-        <!-- 0.0: Ground plate (just for visual anchor) -->
-        <a-plane width="1.2" height="0.9" position="0 0 0" rotation="0 0 0"
-                 material="color:#111; opacity:0.35; transparent:true"></a-plane>
+<script type="module">
 
-        <!-- Router body -->
-        <a-box id="router" position="-0.25 0.06 0.00" depth="0.22" height="0.10" width="0.32"
-               material="color:#2a2a2a; metalness:0.15; roughness:0.8"></a-box>
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158/build/three.module.js";
+import {ARButton} from "https://cdn.jsdelivr.net/npm/three@0.158/examples/jsm/webxr/ARButton.js";
 
-        <!-- Router port (orange frame) -->
-        <a-box id="routerPort" position="-0.38 0.06 0.06" depth="0.05" height="0.05" width="0.05"
-               material="color:#ff8a00; emissive:#331700; emissiveIntensity:0.2"></a-box>
+let scene = new THREE.Scene()
 
-        <!-- Raz body -->
-        <a-box id="raz" position="0.28 0.05 -0.02" depth="0.18" height="0.08" width="0.22"
-               material="color:#1b1b1b; metalness:0.1; roughness:0.85"></a-box>
+let camera = new THREE.PerspectiveCamera()
 
-        <!-- RazPort (this becomes green when connected) -->
-        <a-box id="razPort" position="0.18 0.05 0.06" depth="0.06" height="0.06" width="0.06"
-               material="color:#f1c232; emissive:#2b2100; emissiveIntensity:0.15"></a-box>
+let renderer = new THREE.WebGLRenderer({alpha:true,antialias:true})
+renderer.setSize(window.innerWidth,window.innerHeight)
+renderer.xr.enabled=true
+document.body.appendChild(renderer.domElement)
 
-        <!-- Plug body (clickable) -->
-        <a-entity id="plug" plug-controller>
-          <a-box position="0.02 0.06 0.20" depth="0.12" height="0.06" width="0.08"
-                 material="color:#cfcfcf; metalness:0.2; roughness:0.55"></a-box>
-          <!-- plug tip -->
-          <a-box position="0.02 0.06 0.14" depth="0.04" height="0.04" width="0.06"
-                 material="color:#bcbcbc; metalness:0.2; roughness:0.5"></a-box>
-          <!-- tiny label -->
-          <a-text value="PLUG (tap)" position="-0.06 0.12 0.22" rotation="90 0 0" scale="0.5 0.5 0.5"
-                  color="#ffffff" align="left"></a-text>
-        </a-entity>
+document.body.appendChild(ARButton.createButton(renderer))
 
-        <!-- Cable (dynamic line) -->
-        <a-entity id="cable" cable-line></a-entity>
+let light=new THREE.HemisphereLight(0xffffff,0xbbbbff,1)
+scene.add(light)
 
-        <!-- helper text -->
-        <a-text id="statusText" value="Status: NOT CONNECTED"
-                position="-0.55 0.02 -0.35" rotation="90 0 0" scale="0.7 0.7 0.7"
-                color="#ffffff"></a-text>
-      </a-entity>
-    </a-marker>
+let router
 
-    <!-- camera -->
-    <a-entity camera></a-entity>
-  </a-scene>
+function createRouter(){
+
+let group=new THREE.Group()
+
+let body=new THREE.Mesh(
+new THREE.BoxGeometry(0.3,0.08,0.2),
+new THREE.MeshStandardMaterial({color:0x333333})
+)
+
+group.add(body)
+
+let port=new THREE.Mesh(
+new THREE.BoxGeometry(0.04,0.04,0.04),
+new THREE.MeshStandardMaterial({color:0xff8800})
+)
+
+port.position.set(-0.18,0,0.05)
+
+group.add(port)
+
+return group
+
+}
+
+document.getElementById("btn").onclick=()=>{
+
+if(!router){
+
+router=createRouter()
+
+router.position.set(0,-0.2,-0.6)
+
+scene.add(router)
+
+}
+
+}
+
+renderer.setAnimationLoop(()=>{
+
+renderer.render(scene,camera)
+
+})
+
+</script>
+
 </body>
 </html>
