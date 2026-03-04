@@ -1,81 +1,93 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="mn">
 <head>
-<meta charset="utf-8">
-<title>AR Router</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>AR Router (Stable)</title>
 
-<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
-<style>
-body{margin:0;overflow:hidden}
-
-#info{
-position:fixed;
-top:10px;
-left:10px;
-color:white;
-background:rgba(0,0,0,0.6);
-padding:10px;
-border-radius:8px;
-font-family:sans-serif;
-}
-</style>
-
+  <style>
+    body{margin:0; overflow:hidden; background:#000;}
+    #hud{
+      position:fixed; left:12px; top:12px; z-index:10;
+      color:#fff; font:14px/1.35 system-ui,Segoe UI,Roboto,Arial;
+      background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.14);
+      border-radius:12px; padding:10px 12px; max-width:92vw;
+    }
+    #hud b{display:block; margin-bottom:6px}
+    #hud .ok{opacity:.9}
+    #badge{
+      position:fixed; left:12px; bottom:12px; z-index:10;
+      color:#fff; font:13px/1.35 system-ui,Segoe UI,Roboto,Arial;
+      background:rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.12);
+      border-radius:12px; padding:8px 10px;
+    }
+  </style>
 </head>
 
 <body>
+  <div id="hud">
+    <b>AR Router (marker дээр)</b>
+    <div class="ok">Marker-ийг кадрын төвд барь. Утсаа тойруулахдаа marker кадраас бүү гарга.</div>
+    <div class="ok">Гэрэл сайн, marker том байх тусам алдах нь багасна.</div>
+  </div>
+  <div id="badge">Tracking: <span id="t">searching…</span></div>
 
-<div id="info">
-AR Router Demo<br>
-Камераа Hiro marker дээр чиглүүл
-</div>
+  <a-scene
+    embedded
+    vr-mode-ui="enabled:false"
+    renderer="antialias:true; precision:mediump; alpha:true;"
+    arjs="
+      sourceType: webcam;
+      debugUIEnabled: false;
 
-<a-scene
-embedded
-arjs="sourceType: webcam; debugUIEnabled:false;"
-vr-mode-ui="enabled:false">
+      detectionMode: mono_and_matrix;
+      matrixCodeType: 3x3;
 
-<a-marker preset="hiro">
+      // ✨ тогтвортой болгох smoothing
+      smooth: true;
+      smoothCount: 12;
+      smoothTolerance: 0.01;
+      smoothThreshold: 3;
+    "
+  >
+    <!-- Marker -->
+    <a-marker id="m" preset="hiro" emitevents="true">
+      <!-- Router group: marker-ийн орон зайд зөв чиглэлтэй байрлана -->
+      <a-entity id="routerGroup" position="0 0 0">
 
-<!-- ROUTER -->
+        <!-- Body -->
+        <a-box position="0 0.05 0" depth="0.25" height="0.08" width="0.35"
+               material="color:#333; metalness:0.1; roughness:0.85"></a-box>
 
-<a-box
-position="0 0.05 0"
-depth="0.25"
-height="0.08"
-width="0.35"
-color="#333">
-</a-box>
+        <!-- Ports -->
+        <a-box position="-0.15 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="#ff8a00"></a-box>
+        <a-box position="-0.10 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="#ff8a00"></a-box>
+        <a-box position="-0.05 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="#ff8a00"></a-box>
+        <a-box position=" 0.00 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="#ff8a00"></a-box>
 
-<!-- ports -->
+        <!-- Antennas -->
+        <a-cylinder position="-0.10 0.18 -0.02" radius="0.01" height="0.26" color="#111"></a-cylinder>
+        <a-cylinder position=" 0.10 0.18 -0.02" radius="0.01" height="0.26" color="#111"></a-cylinder>
 
-<a-box position="-0.15 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="orange"></a-box>
-<a-box position="-0.1 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="orange"></a-box>
-<a-box position="-0.05 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="orange"></a-box>
-<a-box position="0 0.05 0.12" depth="0.03" height="0.03" width="0.03" color="orange"></a-box>
+        <!-- Label -->
+        <a-text value="ROUTER" position="-0.12 0.12 -0.18" scale="0.8 0.8 0.8"
+                color="#fff" align="left"></a-text>
 
-<!-- antennas -->
+      </a-entity>
+    </a-marker>
 
-<a-cylinder
-position="-0.1 0.15 0"
-radius="0.01"
-height="0.2"
-color="black">
-</a-cylinder>
+    <a-entity camera></a-entity>
+  </a-scene>
 
-<a-cylinder
-position="0.1 0.15 0"
-radius="0.01"
-height="0.2"
-color="black">
-</a-cylinder>
+  <script>
+    const t = document.getElementById('t');
+    const marker = document.getElementById('m');
 
-</a-marker>
-
-<a-entity camera></a-entity>
-
-</a-scene>
-
+    marker.addEventListener('markerFound', () => { t.textContent = 'FOUND ✅'; });
+    marker.addEventListener('markerLost',  () => { t.textContent = 'LOST ❌ (marker кадраас гарлаа)'; });
+  </script>
 </body>
 </html>
