@@ -67,11 +67,6 @@
       justify-content:center;
     }
 
-    .hotspot:focus{
-      outline:3px solid #fff;
-      outline-offset:2px;
-    }
-
     .panel{
       margin-top:14px;
       background:rgba(255,255,255,.06);
@@ -98,7 +93,7 @@
   <header>
     <b>Markerгүй AR — Router</b>
     <small>
-      View in AR → ширээн дээр тавь → router-ийг эргүүлж ар тал руу нь хар → улаан + дээр дар.
+      View in AR → router-ийг эргүүлж порт дээрх улаан + тэмдгийг дар.
     </small>
   </header>
 
@@ -117,12 +112,11 @@
       scale="0.1 0.1 0.1"
       alt="Router model">
 
-      <!-- HOTSPOT ЗААВАЛ model-viewer ДОТОР БАЙХ ЁСТОЙ -->
       <button
         class="hotspot"
         slot="hotspot-port1"
-        data-position="0m 0.015m -0.16m"
-        data-normal="0m 0m -1m"
+        data-position="0m 0.005m 0m"
+        data-normal="0m 0m 1m"
         onclick="toggleInfo()"
         title="Port мэдээлэл">
         +
@@ -132,12 +126,11 @@
 
     <div id="infoBox" class="panel hidden">
       <b>Энэ бол порт.</b><br>
-      Энд сүлжээний кабель холбоно.
+      Энд Ethernet кабель холбоно.
     </div>
 
     <div class="note">
-      Хэрвээ + харагдахгүй байвал router-ийг эргүүлж ар талаас нь хар.  
-      Портын байршил өөр байвал дараагийн алхамд координатыг нь тааруулна.
+      Хэрвээ + тэмдэг яг портон дээр биш байвал дараагийн алхмаар X, Y, Z утгыг бага багаар тааруулна.
     </div>
   </div>
 
@@ -150,8 +143,8 @@
     }
 
     mv.addEventListener('load', () => {
-      mv.cameraOrbit = "45deg 70deg 2.5m";
-      mv.fieldOfView = "30deg";
+      mv.cameraOrbit = "0deg 75deg 2.2m";
+      mv.fieldOfView = "28deg";
     });
   </script>
 </body>
