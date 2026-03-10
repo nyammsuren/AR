@@ -2,7 +2,7 @@
 <html lang="mn">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=0.01,maximum-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=0.001,maximum-scale=1" />
   <title>Markerгүй AR Switch</title>
 
   <!-- model-viewer -->
@@ -73,24 +73,9 @@
       shadow-softness="1"
       exposure="1"
       environment-image="neutral"
-      scale="0.01 0.01 0.01"
+      scale="0.0001 0.0001 0.0001"
       alt="Switch model">
     </model-viewer>
-
-    <div class="panel">
-      <div>Хэмжээ том байвал доорх товчоор багасгаж/томруулж болно (web preview дээр шууд нөлөөлнө).</div>
-      <div class="row">
-        <button onclick="setScale(0.1)">Scale 0.1 (10x жижиг)</button>
-        <button onclick="setScale(0.2)">Scale 0.2 (5x жижиг)</button>
-        <button onclick="setScale(0.3)">Scale 0.3</button>
-        <button onclick="setScale(0.5)">Scale 0.5</button>
-        <button onclick="setScale(1)">Scale 1 (анхны)</button>
-      </div>
-      <div style="margin-top:10px;opacity:.9">
-        iPhone дээр AR орсон үед уруугаараа <b>томруулах/жижгэрүүлэх</b> боломжтой.
-        Гэхдээ эхний default хэмжээг энэ <code>scale</code> тодорхойлно.
-      </div>
-    </div>
 
   </div>
 
@@ -111,6 +96,7 @@
   </script>
 </body>
 </html>
+
 
 
 
