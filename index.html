@@ -3,66 +3,93 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-  <title>Markerгүй AR Router</title>
+  <title>Markerгүй AR — Router Port Hotspot</title>
 
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <style>
     body{
       margin:0;
-      font-family:system-ui,Segoe UI,Roboto,Arial;
+      font-family:system-ui, Segoe UI, Roboto, Arial, sans-serif;
       background:#0b0b0b;
       color:#fff;
     }
+
     header{
       padding:12px 14px;
       background:#111;
       position:sticky;
       top:0;
-      z-index:5;
+      z-index:10;
       border-bottom:1px solid rgba(255,255,255,.12);
     }
-    header b{display:block;margin-bottom:4px}
-    header small{opacity:.85}
+
+    header b{
+      display:block;
+      margin-bottom:4px;
+      font-size:26px;
+    }
+
+    header small{
+      opacity:.9;
+      line-height:1.4;
+      font-size:18px;
+    }
 
     .wrap{
-      padding:14px;
-      max-width:980px;
+      max-width:1100px;
       margin:0 auto;
+      padding:16px;
     }
 
     model-viewer{
       width:100%;
       height:72vh;
-      background:#f2f2f2;
-      border-radius:16px;
+      background:#e9e9e9;
+      border-radius:18px;
       border:1px solid rgba(255,255,255,.12);
       overflow:hidden;
     }
 
- .hotspot{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:red;
-  color:white;
-  font-size:22px;
-  font-weight:bold;
-}
-
-    .info-box{
-      margin-top:12px;
-      padding:12px 14px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.16);
-      border-radius:12px;
+    .hotspot{
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:50%;
+      background:#ff2d20;
       color:#fff;
-      max-width:420px;
-      line-height:1.4;
+      font-size:24px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 4px 12px rgba(0,0,0,.35);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .hotspot:focus{
+      outline:3px solid #fff;
+      outline-offset:2px;
+    }
+
+    .panel{
+      margin-top:14px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:14px 16px;
+      line-height:1.5;
+      font-size:18px;
     }
 
     .hidden{
       display:none;
+    }
+
+    .note{
+      margin-top:12px;
+      opacity:.88;
+      font-size:16px;
     }
   </style>
 </head>
@@ -70,15 +97,11 @@
 <body>
   <header>
     <b>Markerгүй AR — Router</b>
-    <small><b>View in AR</b> → ширээн дээр тавь → портыг дарж тайлбар үзнэ.</small>
+    <small>
+      View in AR → ширээн дээр тавь → router-ийг эргүүлж ар тал руу нь хар → улаан + дээр дар.
+    </small>
   </header>
-<button
- class="hotspot"
- slot="hotspot-port1"
- data-position="0m 0.02m 0.18m"
- data-normal="0m 0m 1m">
- +
-</button>
+
   <div class="wrap">
     <model-viewer
       id="mv"
@@ -94,28 +117,36 @@
       scale="0.1 0.1 0.1"
       alt="Router model">
 
+      <!-- HOTSPOT ЗААВАЛ model-viewer ДОТОР БАЙХ ЁСТОЙ -->
       <button
         class="hotspot"
         slot="hotspot-port1"
-        data-position="0m 0.02m 0.18m"
-        data-normal="0m 0m 1m"
-        onclick="toggleInfo('portInfo')">
-        ●
+        data-position="0m 0.015m -0.16m"
+        data-normal="0m 0m -1m"
+        onclick="toggleInfo()"
+        title="Port мэдээлэл">
+        +
       </button>
 
     </model-viewer>
 
-    <div id="portInfo" class="info-box hidden">
-      Энэ бол <b>порт</b>. Энд Ethernet кабель холбоно.
+    <div id="infoBox" class="panel hidden">
+      <b>Энэ бол порт.</b><br>
+      Энд сүлжээний кабель холбоно.
+    </div>
+
+    <div class="note">
+      Хэрвээ + харагдахгүй байвал router-ийг эргүүлж ар талаас нь хар.  
+      Портын байршил өөр байвал дараагийн алхамд координатыг нь тааруулна.
     </div>
   </div>
 
   <script>
     const mv = document.getElementById('mv');
+    const infoBox = document.getElementById('infoBox');
 
-    function toggleInfo(id){
-      const el = document.getElementById(id);
-      el.classList.toggle('hidden');
+    function toggleInfo(){
+      infoBox.classList.toggle('hidden');
     }
 
     mv.addEventListener('load', () => {
@@ -125,4 +156,3 @@
   </script>
 </body>
 </html>
-
