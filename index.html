@@ -2,24 +2,35 @@
 <html lang="mn">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=0.001,maximum-scale=1" />
-  <title>Markerгүй AR Switch</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>Markerгүй AR Router</title>
 
-  <!-- model-viewer -->
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <style>
-    body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:#0b0b0b;color:#fff}
+    body{
+      margin:0;
+      font-family:system-ui,Segoe UI,Roboto,Arial;
+      background:#0b0b0b;
+      color:#fff;
+    }
     header{
       padding:12px 14px;
       background:#111;
-      position:sticky; top:0; z-index:5;
+      position:sticky;
+      top:0;
+      z-index:5;
       border-bottom:1px solid rgba(255,255,255,.12);
     }
     header b{display:block;margin-bottom:4px}
     header small{opacity:.85}
 
-    .wrap{padding:14px;max-width:980px;margin:0 auto}
+    .wrap{
+      padding:14px;
+      max-width:980px;
+      margin:0 auto;
+    }
+
     model-viewer{
       width:100%;
       height:72vh;
@@ -28,67 +39,35 @@
       border:1px solid rgba(255,255,255,.12);
       overflow:hidden;
     }
-
-    .panel{
-      margin-top:12px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:14px;
-      padding:10px 12px;
-      line-height:1.35;
-    }
-    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-    button{
-      cursor:pointer;
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(255,255,255,.08);
-      color:#fff;
-      border-radius:12px;
-      padding:10px 12px;
-      font-size:14px;
-    }
-    button:active{transform:translateY(1px)}
-    code{background:rgba(0,0,0,.25); padding:2px 6px; border-radius:8px}
   </style>
 </head>
 
 <body>
   <header>
-    <b>Markerгүй AR — Switch</b>
-    <small> <b>View in AR</b> → ширээн дээр тавь → хуруугаар хэмжээг өөрчилж, эргүүлж харж болно.</small>
+    <b>Markerгүй AR — Router</b>
+    <small><b>View in AR</b> → ширээн дээр тавь → хуруугаар хэмжээг өөрчилж, эргүүлж харж болно.</small>
   </header>
 
   <div class="wrap">
-
-    <!--GLB + iOS-д USDZ -->
     <model-viewer
       id="mv"
       src="./routerAR.glb"
-    
       ar
-      ar-modes="quick-look"
+      ar-modes="webxr scene-viewer quick-look"
       ar-placement="floor"
       camera-controls
       shadow-intensity="1"
       shadow-softness="1"
       exposure="1"
       environment-image="neutral"
-      scale="0.0001 0.0001 0.0001"
-      alt="Switch model">
+      scale="0.1 0.1 0.1"
+      alt="Router model">
     </model-viewer>
-
   </div>
 
   <script>
     const mv = document.getElementById('mv');
 
-    // model-viewer дээрх preview scale-ийг солих (web дээр шууд харагдана)
-    function setScale(v){
-      mv.setAttribute('scale', `${v} ${v} ${v}`);
-    }
-    window.setScale = setScale;
-
-    // Model ачааллагдсаны дараа автоматаар хамгийн гоё өнцөгт тохируулна
     mv.addEventListener('load', () => {
       mv.cameraOrbit = "45deg 70deg 2.5m";
       mv.fieldOfView = "30deg";
@@ -96,10 +75,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
