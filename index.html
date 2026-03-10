@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-  <title>Markerгүй AR Switch (iPhone Quick Look)</title>
+  <title>Markerгүй AR Switch</title>
 
   <!-- model-viewer -->
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
@@ -54,13 +54,13 @@
 
 <body>
   <header>
-    <b>Markerгүй AR (iPhone 13 Pro Max) — Switch</b>
-    <small>Safari → <b>View in AR</b> → ширээн дээр тавь → хуруугаар rotate/scale.</small>
+    <b>Markerгүй AR — Switch</b>
+    <small> <b>View in AR</b> → ширээн дээр тавь → хуруугаар хэмжээг өөрчилж, эргүүлж харж болно.</small>
   </header>
 
   <div class="wrap">
 
-    <!-- ✅ Гол хэсэг: GLB + iOS-д USDZ -->
+    <!--GLB + iOS-д USDZ -->
     <model-viewer
       id="mv"
       src="./switch.glb"
@@ -87,7 +87,7 @@
         <button onclick="setScale(1)">Scale 1 (анхны)</button>
       </div>
       <div style="margin-top:10px;opacity:.9">
-        iPhone дээр AR орсон үед (Quick Look) хуруугаараа <b>томруулах/жижгэрүүлэх</b> боломжтой.
+        iPhone дээр AR орсон үед уруугаараа <b>томруулах/жижгэрүүлэх</b> боломжтой.
         Гэхдээ эхний default хэмжээг энэ <code>scale</code> тодорхойлно.
       </div>
     </div>
@@ -111,3 +111,4 @@
   </script>
 </body>
 </html>
+
