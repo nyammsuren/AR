@@ -40,18 +40,15 @@
       overflow:hidden;
     }
 
-    .hotspot{
-      width:28px;
-      height:28px;
-      border-radius:50%;
-      border:none;
-      background:#ff4d4f;
-      color:#fff;
-      font-size:16px;
-      font-weight:bold;
-      cursor:pointer;
-      box-shadow:0 2px 8px rgba(0,0,0,.35);
-    }
+ .hotspot{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:red;
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+}
 
     .info-box{
       margin-top:12px;
@@ -75,7 +72,13 @@
     <b>Markerгүй AR — Router</b>
     <small><b>View in AR</b> → ширээн дээр тавь → портыг дарж тайлбар үзнэ.</small>
   </header>
-
+<button
+ class="hotspot"
+ slot="hotspot-port1"
+ data-position="0m 0.02m 0.18m"
+ data-normal="0m 0m 1m">
+ +
+</button>
   <div class="wrap">
     <model-viewer
       id="mv"
@@ -122,3 +125,4 @@
   </script>
 </body>
 </html>
+
