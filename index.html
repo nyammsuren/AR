@@ -39,13 +39,41 @@
       border:1px solid rgba(255,255,255,.12);
       overflow:hidden;
     }
+
+    .hotspot{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      border:none;
+      background:#ff4d4f;
+      color:#fff;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 2px 8px rgba(0,0,0,.35);
+    }
+
+    .info-box{
+      margin-top:12px;
+      padding:12px 14px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:12px;
+      color:#fff;
+      max-width:420px;
+      line-height:1.4;
+    }
+
+    .hidden{
+      display:none;
+    }
   </style>
 </head>
 
 <body>
   <header>
     <b>Markerгүй AR — Router</b>
-    <small><b>View in AR</b> → ширээн дээр тавь → хуруугаар хэмжээг өөрчилж, эргүүлж харж болно.</small>
+    <small><b>View in AR</b> → ширээн дээр тавь → портыг дарж тайлбар үзнэ.</small>
   </header>
 
   <div class="wrap">
@@ -60,13 +88,32 @@
       shadow-softness="1"
       exposure="1"
       environment-image="neutral"
-      scale="0.2 0.2 0.2"
+      scale="0.1 0.1 0.1"
       alt="Router model">
+
+      <button
+        class="hotspot"
+        slot="hotspot-port1"
+        data-position="0m 0.02m 0.18m"
+        data-normal="0m 0m 1m"
+        onclick="toggleInfo('portInfo')">
+        ●
+      </button>
+
     </model-viewer>
+
+    <div id="portInfo" class="info-box hidden">
+      Энэ бол <b>порт</b>. Энд Ethernet кабель холбоно.
+    </div>
   </div>
 
   <script>
     const mv = document.getElementById('mv');
+
+    function toggleInfo(id){
+      const el = document.getElementById(id);
+      el.classList.toggle('hidden');
+    }
 
     mv.addEventListener('load', () => {
       mv.cameraOrbit = "45deg 70deg 2.5m";
@@ -75,4 +122,3 @@
   </script>
 </body>
 </html>
-
