@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-  <title>AR Wireless Router  </title>
+  <title>AR Server  </title>
 
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
@@ -102,13 +102,13 @@
 
 <body>
   <header>
-    <b> AR Router</b>
+    <b> AR Server</b>
     <small>
      <b> Гар утсаар харах заавар.  </b><br>
       Алхам 1. Гарч ирсэн цагаан цонхны баруун доод буланд байрлах товчийг дарна.<br>
-      Алхам 2. Камерийг ширээ юм уу рутер тавих хавтанруу чиглүүлж рутерийг дарна.<br>
-      Алхам 3. Байрлуулсны дараа утсаа эргүүлж эсвэл хуруугаараа рутерийг эргүүлж тал бүрээс нь харах боломжтой.<br>
-      Алхам 4. Рутер дээр хуруугаар дарсан чигээр рутерийг өөр өөр талбарруу зөөх боломжтой.<br>
+      Алхам 2. Камерийг ширээ юм уу рутер тавих хавтанруу чиглүүлж 3D загварыг дарна.<br>
+      Алхам 3. Байрлуулсны дараа утсаа эргүүлж эсвэл хуруугаараа 3D загварыг эргүүлж тал бүрээс нь харах боломжтой.<br>
+      Алхам 4. 3D загвар дээр хуруугаар дарсан чигээр өөр өөр талбарруу зөөх боломжтой.<br>
 
     </small>
   </header>
@@ -116,7 +116,7 @@
   <div class="wrap">
     <model-viewer
       id="mv"
-      src="./routerAR.glb"
+      src="./server2.glb"
       ar
       ar-modes="webxr scene-viewer quick-look"
       ar-placement="floor"
@@ -126,28 +126,10 @@
       exposure="1"
       environment-image="neutral"
       scale="0.1 0.1 0.1"
-      alt="Router model">
+      alt="Server model">
 
-     <button
-  class="hotspot"
-  slot="hotspot-port1"
-  data-position="0.011m 0.0019m -0.0192m"
-  data-normal="0m 0m 1m"
-  onclick="toggleLabel()"
-  title="Port мэдээлэл">
-  +
-</button>
+    
 
-<div
-  id="portLabel"
-  class="hotspot-label hidden"
-  slot="hotspot-port1-label"
-   data-position="0.011m 0.009m -0.0192m"
-  data-normal="0m 0m 1m">
-  <b>Ethernet порт</b><br>
-  Энд Ethernet кабель холбоно. Утасгүй сүлжээний рутер нь Wi-Fi сүлжээ үүсгэхээс гадна 
-Ethernet портуудаар компьютер болон бусад төхөөрөмжүүдийг холбож, интернетийн холболтыг дамжуулдаг.
-</div>
 
     </model-viewer>
 
