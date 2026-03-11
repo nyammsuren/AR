@@ -116,7 +116,7 @@
   <div class="wrap">
     <model-viewer
       id="mv"
-      src="./routerAR.glb"
+      src="./switch.glb"
       ar
       ar-modes="webxr scene-viewer quick-look"
       ar-placement="floor"
@@ -125,7 +125,7 @@
       shadow-softness="1"
       exposure="1"
       environment-image="neutral"
-      scale="0.1 0.1 0.1"
+      scale="0.05 0.05 0.05"
       alt="Router model">
 
   
@@ -144,7 +144,7 @@
     }
 
     mv.addEventListener('load', () => {
-      mv.cameraOrbit = "0deg 45deg 10m";
+      mv.cameraOrbit = "0deg 90deg 10m";
       mv.fieldOfView = "28deg";
     });
 function toggleLabel(){
