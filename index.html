@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-  <title>Markerгүй AR — Router Port Hotspot</title>
+  <title>AR Router  </title>
 
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
@@ -91,7 +91,7 @@
 
 <body>
   <header>
-    <b>Markerгүй AR — Router</b>
+    <b> AR Router</b>
     <small>
       View in AR → router-ийг эргүүлж порт дээрх улаан + тэмдгийг дар.
     </small>
@@ -115,7 +115,7 @@
       <button
         class="hotspot"
         slot="hotspot-port1"
-      data-position="0.005m 0.0005m -0.025m"
+        data-position="0.011m 0.0019m -0.0192m"
         data-normal="0m 0m 1m"
         onclick="toggleInfo()"
         title="Port мэдээлэл">
@@ -129,9 +129,7 @@
       Энд Ethernet кабель холбоно.
     </div>
 
-    <div class="note">
-      Хэрвээ + тэмдэг яг портон дээр биш байвал дараагийн алхмаар X, Y, Z утгыг бага багаар тааруулна.
-    </div>
+  
   </div>
 
   <script>
@@ -143,22 +141,9 @@
     }
 
     mv.addEventListener('load', () => {
-      mv.cameraOrbit = "0deg 75deg 2.2m";
+      mv.cameraOrbit = "180deg 90deg 10m";
       mv.fieldOfView = "28deg";
     });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
