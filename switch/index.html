@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>AR Wireless Router  </title>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    body{
+      margin:0;
+      font-family:system-ui, Segoe UI, Roboto, Arial, sans-serif;
+      background:#0b0b0b;
+      color:#fff;
+    }
+
+    header{
+      padding:12px 14px;
+      background:#111;
+      position:sticky;
+      top:0;
+      z-index:10;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+
+    header b{
+      display:block;
+      margin-bottom:4px;
+      font-size:26px;
+    }
+
+    header small{
+      opacity:.9;
+      line-height:1.4;
+      font-size:18px;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:16px;
+    }
+
+    model-viewer{
+      width:100%;
+      height:72vh;
+      background:#e9e9e9;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+    }
+
+    .hotspot{
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:50%;
+      background:#ff2d20;
+      color:#fff;
+      font-size:24px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 4px 12px rgba(0,0,0,.35);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+.hotspot-label{
+  max-width:240px;
+  padding:10px 12px;
+  border-radius:12px;
+  background:rgba(20,20,20,.92);
+  color:#fff;
+  font-size:14px;
+  line-height:1.45;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
+
+    .panel{
+      margin-top:14px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:14px 16px;
+      line-height:1.5;
+      font-size:18px;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .note{
+      margin-top:12px;
+      opacity:.88;
+      font-size:16px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <b> AR Switch</b>
+    <small>аааа
+     Вэб дээр AR ашиглах заавар → Утасгүй сүлжээний рутерийг хулганаар дарж эргүүлэх ба + тэмдгийг дарж нэмэлт мэдээлэл авч болно. <br>
+
+    </small>
+  </header>
+
+  <div class="wrap">
+    <model-viewer
+      id="mv"
+      src="./switch.glb"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      ar-placement="floor"
+      camera-controls
+      shadow-intensity="1"
+      shadow-softness="1"
+      exposure="1"
+      environment-image="neutral"
+      scale="0.1 0.1 0.1"
+      alt="Router model">
+
+     <button
+  class="hotspot"
+  slot="hotspot-port1"
+  data-position="0.011m 0.0019m -0.0192m"
+  data-normal="0m 0m 1m"
+  onclick="toggleLabel()"
+  title="Port мэдээлэл">
+  +
+</button>
+
+<div
+  id="portLabel"
+  class="hotspot-label hidden"
+  slot="hotspot-port1-label"
+  data-position="0.8m 0.015m -0.0192m"
+  data-normal="0m 0m 1m">
+  <b>Ethernet порт</b><br>
+  Энд Ethernet кабель холбоно. Утасгүй сүлжээний рутер нь Wi-Fi сүлжээ үүсгэхээс гадна 
+Ethernet портуудаар компьютер болон бусад төхөөрөмжүүдийг холбож, интернетийн холболтыг дамжуулдаг.
+</div>
+
+    </model-viewer>
+
+    <div id="infoBox" class="panel hidden">
+     <b>Ethernet порт</b><br>
+
+    </div>
+
+  
+  </div>
+
+  <script>
+    const mv = document.getElementById('mv');
+    const infoBox = document.getElementById('infoBox');
+
+    function toggleInfo(){
+      infoBox.classList.toggle('hidden');
+    }
+
+    mv.addEventListener('load', () => {
+      mv.cameraOrbit = "0deg 45deg 10m";
+      mv.fieldOfView = "28deg";
+    });
+function toggleLabel(){
+    document.getElementById('portLabel').classList.toggle('hidden');
+  }
+  </script>
+</body>
+
+</html>
+
+
