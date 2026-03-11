@@ -66,6 +66,17 @@
       align-items:center;
       justify-content:center;
     }
+.hotspot-label{
+  max-width:240px;
+  padding:10px 12px;
+  border-radius:12px;
+  background:rgba(20,20,20,.92);
+  color:#fff;
+  font-size:14px;
+  line-height:1.45;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
 
     .panel{
       margin-top:14px;
@@ -92,7 +103,7 @@
 <body>
   <header>
     <b> AR Router</b>
-    <small>
+    <small>аааа
      Вэб дээр AR ашиглах заавар → Утасгүй сүлжээний рутерийг хулганаар дарж эргүүлэх ба + тэмдгийг дарж нэмэлт мэдээлэл авч болно. <br>
 
     </small>
@@ -113,15 +124,25 @@
       scale="0.1 0.1 0.1"
       alt="Router model">
 
-      <button
-        class="hotspot"
-        slot="hotspot-port1"
-        data-position="0.011m 0.0019m -0.0192m"
-        data-normal="0m 0m 1m"
-        onclick="toggleInfo()"
-        title="Port мэдээлэл">
-        +
-      </button>
+     <button
+  class="hotspot"
+  slot="hotspot-port1"
+  data-position="0.011m 0.0019m -0.0192m"
+  data-normal="0m 0m 1m"
+  onclick="toggleLabel()"
+  title="Port мэдээлэл">
+  +
+</button>
+
+<div
+  id="portLabel"
+  class="hotspot-label hidden"
+  slot="hotspot-port1-label"
+  data-position="0.8m 0.015m -0.0192m"
+  data-normal="0m 0m 1m">
+  <b>Ethernet порт</b><br>
+  Энд Ethernet кабель холбоно.
+</div>
 
     </model-viewer>
 
@@ -146,8 +167,12 @@ Ethernet портуудаар компьютер болон бусад төхө�
       mv.cameraOrbit = "0deg 45deg 10m";
       mv.fieldOfView = "28deg";
     });
+function toggleLabel(){
+    document.getElementById('portLabel').classList.toggle('hidden');
+  }
   </script>
 </body>
 
 </html>
+
 
